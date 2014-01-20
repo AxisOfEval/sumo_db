@@ -45,10 +45,17 @@
 -record(state, {pool :: atom() | pid()}).
 -type state() :: #state{}.
 
+-type init_result() :: {ok, term()}
+                     | {ok, term(), non_neg_integer()}
+                     | {ok, term(), hibernate}
+                     | {stop, term()}
+                     | ignore.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% External API.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+-init(proplists:proplist()) -> init_result().
 init(Options) ->
   % The storage backend key in the options specifies the name of the process
   % which creates and initializes the storage backend.
